@@ -1,5 +1,6 @@
 //1.加载http核心模块
 var http= require('http')
+var fs=require('fs')
 
 //2. 使用http.createServer()方法创建一个web服务器。返回一个server 实例
 var server = http.createServer() 
@@ -11,14 +12,33 @@ server.on('request',function(request,response){
     // response.write('hello') 
     // response.write(' nodejs')
     // response.end()
-    response.end('hello nodejs')
+    //response.end('hello nodejs')
+    response.setHeader('Content-Type','text/plain;charset=utf-8')
 
     var url=request.url
     if (url==='/'){
-        response.end('index page')
+        //response.end('index page')
+        fs.readFile()
     }else if(url==='/login'){
         response.end('login page')
-    }else{
+    }else if(url==='/products'){
+        var products=[
+            {
+                name:'apple X',
+                price:8888
+            },
+            {
+                name:'apple 8',
+                price:5000
+            },
+            {
+                name:'苹果 7',
+                price:1999
+            }
+        ]
+        response.end(JSON.stringify(products))
+    }
+    else{
         response.end('404 not found')
     }
 })
